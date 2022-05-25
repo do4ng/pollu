@@ -1,0 +1,29 @@
+{
+  "name": "pollu",
+  "version": "1.1.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "html-parse-stringify": "^3.0.1"
+  },
+  "scripts": {
+    "build": "node ./scripts/build.js",
+    "playground": "vite"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/node": "^17.0.33",
+    "@types/react": "^18.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "esbuild": "^0.14.39",
+    "esbuild-node-externals": "^1.4.1",
+    "eslint": "^8.9.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "typescript": "^4.5.5",
+    "vite": "^2.9.9"
+  }
+}
