@@ -1,5 +1,8 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-new-func */
-import { transform as t } from '../dist/browser';
+
+console.log(window.pollu);
+const t = window.pollu.transform;
 
 const app = {};
 
