@@ -4,5 +4,7 @@ export interface TransformOptions {
    */
   target?: string;
 
+  base?: string;
+
   minify?: boolean;
 }

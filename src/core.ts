@@ -8,6 +8,13 @@ function parseHTML(html: string, options?: parser.IOptions): Array<parser.IDoc> 
 }
 
 function transform(html: string, opts?: TransformOptions) {
+  opts = {
+    minify: false,
+    target: 'body',
+    base: 'document',
+    ...opts,
+  };
+
   const n = () => {
     if (!opts.minify) return '\n';
     return '';
@@ -112,7 +119,7 @@ ${$.useElement ? 'var e0 = document.createElement("div");' : ''}
 __pollu__['createElements'] = function (t) {
   var style = document.createElement('style');
   style.innerHTML = \`${customStyle}\`; /*style*/
-  ${$.useElement ? '' : 'const e0 = document.querySelector(t || "body");'}
+  ${$.useElement ? '' : `const e0 = ${opts.base}.querySelector(t || "body");`}
   ${declareElement}\n\n${appendElement}
   e0.appendChild(style);
 }

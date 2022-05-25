@@ -1,8 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-new-func */
 
-console.log(window.pollu);
-const t = window.pollu.transform;
+const t = window.Pollu.transform;
 
 const app = {};
 
@@ -18,7 +17,7 @@ app.component = t(
   * {
     text-align: center;
   }
-  code {padding: 0px 5px; font-family: Consolas,monospace;background-color: #f5f5f5;border-radius: 3px;color: #333;}
+  code {margin: 0px 5px; padding: 2px; font-family: Consolas,monospace;background-color: #f5f5f5;border-radius: 3px;color: #333;}
 </style>
 `,
   { minify: true }

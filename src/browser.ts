@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { transform } from './core';
 
-window.pollu = {
+window.Pollu = {
   transform,
 };
 
 declare global {
   interface Window {
-    pollu: {
+    Pollu: {
       transform: typeof transform;
     };
   }
