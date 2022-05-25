@@ -11,7 +11,7 @@ build({
 });
 
 build({
-  entryPoints: ['src/index.ts'],
+  entryPoints: ['src/browser.ts'],
   bundle: true,
   platform: 'node',
   minify: true,

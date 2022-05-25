@@ -13,3 +13,16 @@ writeFileSync('index.js', transform('<div>Hello World</div>').js);
 ```
 
 > output: Hello World
+
+see example in [playground](https://github.com/kangdongmandoo/pollu/tree/main/playground)
+
+## Browser-Support
+
+```html
+<script src="https://unpkg.com/pollu@1.1.0/dist/browser.js"></script>
+```
+
+```js
+// check browser support
+console.log(window.pollu.transform);
+```
