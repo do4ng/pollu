@@ -24,5 +24,5 @@ see example in [playground](https://github.com/kangdongmandoo/pollu/tree/main/pl
 
 ```js
 // check browser support
-console.log(window.pollu.transform);
+console.log(window.Pollu.transform);
 ```
