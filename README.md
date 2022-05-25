@@ -19,7 +19,7 @@ see example in [playground](https://github.com/kangdongmandoo/pollu/tree/main/pl
 ## Browser-Support
 
 ```html
-<script src="https://unpkg.com/pollu@1.1.0/dist/browser.js"></script>
+<script src="https://unpkg.com/pollu@1.1.0/dist/browser.js" type="module"></script>
 ```
 
 ```js
