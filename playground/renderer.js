@@ -23,6 +23,28 @@ app.component = t(
   { minify: true }
 );
 
+app.links = t(
+  `
+<app:define name="pollu-link" />
+
+<div>
+  <a href="https://github.com/kangdongmandoo/pollu">🐱 github</a>
+  <a href="https://www.npmjs.com/package/pollu">🤖 download</a>
+</div>
+
+<style>
+  * {
+    text-align: center;
+  }
+  a {
+    color: #333;
+    padding: 5px;
+  }
+</style>
+`,
+  { minify: true }
+);
+
 app.page = t(
   `
 <h1>
@@ -30,6 +52,7 @@ app.page = t(
 </h1>
 
 <edit-me />
+<pollu-link />
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
@@ -43,5 +66,6 @@ app.page = t(
   { target: '#app', minify: true }
 );
 
+new Function(app.links.js)();
 new Function(app.component.js)();
 new Function(app.page.js)();
