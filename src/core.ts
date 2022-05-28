@@ -98,10 +98,8 @@ function transform(html: string, opts?: TransformOptions) {
   };
 
   parsing(documents, 0);
-  console.log(transformedTarget);
 
   Object.keys(transformedTarget).forEach((key) => {
-    console.log(key);
     const children = transformedTarget[key];
 
     appendElement += `applyElement(e${key}, ${children.map((c) => `e${c}`).join(', ')});${nt()}`;
