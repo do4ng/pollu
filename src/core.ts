@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable no-shadow */
 /* eslint-disable indent */
 import * as parser from 'html-parse-stringify';
@@ -36,6 +37,7 @@ function transform(html: string, opts?: TransformOptions) {
    *  0: root
    */
   const transformedTarget = {};
+  const texts = {};
   let declareElement = '';
   let appendElement = '';
   let countElement = 0;
@@ -44,6 +46,11 @@ function transform(html: string, opts?: TransformOptions) {
   const $ = {
     useElement: false,
     elementName: null,
+  };
+
+  const checkIsText = (e) => {
+    if (Object.keys(texts).includes(e.replace('e', ''))) return `\'${texts[Number(e.replace('e', ''))]}\'` || '';
+    return e;
   };
 
   const parsing = (doc: Array<parser.IDoc>, parentElementIndex: number) => {
@@ -71,25 +78,26 @@ function transform(html: string, opts?: TransformOptions) {
             break;
 
           default:
-            element = `var e${countElement} = document.createElement('${d.name}');${nt()}`;
+            element = `var e${countElement} = ce('${d.name}');${nt()}`;
 
             if (Object.keys(d.attrs).length !== 0) {
               const attributes = [];
               Object.keys(d.attrs).forEach((attr) => {
                 attributes.push(JSON.stringify({ [attr]: d.attrs[attr] }));
               });
-              element += `addAttributes(e${countElement}, ${attributes.join(',')});${nt()}`;
+              element += `aa(e${countElement}, ${attributes.join(',')});${nt()}`;
             }
 
             break;
         }
       } else if (d.type === 'text') {
         if (d.content.replace('\n', '').trim() !== '') {
-          element = `var e${countElement} = document.createTextNode('${trimHTML(d.content)}');${nt()}`;
+          element = ' ';
+          texts[countElement.toString()] = d.content;
         }
       }
       if (element) {
-        declareElement += element;
+        declareElement += element.trim();
         transformedTarget[parentElementIndex] = [...(transformedTarget[parentElementIndex] || []), countElement];
         if (d.children) parsing(d.children, countElement);
         countElement += 1;
@@ -102,7 +110,7 @@ function transform(html: string, opts?: TransformOptions) {
   Object.keys(transformedTarget).forEach((key) => {
     const children = transformedTarget[key];
 
-    appendElement += `applyElement(e${key}, ${children.map((c) => `e${c}`).join(', ')});${nt()}`;
+    appendElement += `ae(e${key}, ${children.map((c) => checkIsText(`e${c}`)).join(', ')});${nt()}`;
   });
   return {
     dev: {
@@ -118,8 +126,9 @@ let Pelement = null; ${c('shadow root')}
 
 ${$.useElement ? 'var e0 = document.createElement("div");' : ''}
 __pollu__['createElements'] = function (t) {
-  const applyElement = ${framework.str.applyElement}
-  const addAttributes = ${framework.str.addAttributes}
+  const ae = ${framework.str.applyElement};
+  const aa = ${framework.str.addAttributes};
+  const ce = document.createElement.bind(document);
   var style = document.createElement('style');
   style.innerHTML = \`${customStyle}\`; /*style*/
   ${$.useElement ? '' : `const e0 = ${opts.base}.querySelector(t || "body");`}
