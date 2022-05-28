@@ -1,6 +1,13 @@
 # pollu.js
 
-compile html to javascript code
+[🐱 github](https://github.com/kangdongmandoo/pollu) [🤖 download](https://www.npmjs.com/package/pollu)
+
+---
+
+compile html to javascript code.  
+You need only one of HTML file to render lots of data...
+
+## Usage
 
 ```js
 import { transform } from 'pollu';
