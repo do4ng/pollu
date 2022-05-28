@@ -1,9 +1,10 @@
 # 🎭 playground
 
-```
-$ git clone https://github.com/kangdongmandoo/pollu.git
+```bash
+$ git clone https://github.com/kangdongmandoo/pollu.git # clone repo
 $ cd pollu
-$ yarn build
+$ yarn # install modules
+$ yarn build # build core app
 $ yarn run playground
 ```
 
