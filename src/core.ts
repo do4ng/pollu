@@ -1,7 +1,9 @@
+/* eslint-disable no-shadow */
 /* eslint-disable indent */
 import * as parser from 'html-parse-stringify';
 import { TransformOptions } from '../lib/interfaces';
 import trimHTML from '../lib/trim';
+import framework from './framework';
 
 function parseHTML(html: string, options?: parser.IOptions): Array<parser.IDoc> {
   return parser.parse(html, options);
@@ -71,10 +73,12 @@ function transform(html: string, opts?: TransformOptions) {
           default:
             element = `var e${countElement} = document.createElement('${d.name}');${nt()}`;
 
-            if (d.attrs) {
+            if (Object.keys(d.attrs).length !== 0) {
+              const attributes = [];
               Object.keys(d.attrs).forEach((attr) => {
-                element += `e${countElement}.setAttribute('${attr}', '${d.attrs[attr]}');${nt()}`;
+                attributes.push(JSON.stringify({ [attr]: d.attrs[attr] }));
               });
+              element += `addAttributes(e${countElement}, ${attributes.join(',')});${nt()}`;
             }
 
             break;
@@ -95,14 +99,11 @@ function transform(html: string, opts?: TransformOptions) {
     Object.keys(transformedTarget).forEach((key) => {
       const children = transformedTarget[key];
 
-      children.forEach((child) => {
-        appendElement += `e${key}.appendChild(e${child});${nt()}`;
-      });
+      appendElement += `applyElement(e${key}, ${children.map((c) => `e${c}`).join(', ')});${nt()}`;
     });
   };
 
   parsing(documents, 0);
-
   return {
     dev: {
       declareElement,
@@ -117,6 +118,8 @@ let Pelement = null; ${c('shadow root')}
 
 ${$.useElement ? 'var e0 = document.createElement("div");' : ''}
 __pollu__['createElements'] = function (t) {
+  const applyElement = ${framework.str.applyElement}
+  const addAttributes = ${framework.str.addAttributes}
   var style = document.createElement('style');
   style.innerHTML = \`${customStyle}\`; /*style*/
   ${$.useElement ? '' : `const e0 = ${opts.base}.querySelector(t || "body");`}
@@ -149,7 +152,7 @@ __pollu__['defineElement'] = function (n) {
 }
 
 __pollu__['defineElement']("${$.elementName}");
-this["pollu"] = __pollu__;
+// this["pollu"] = __pollu__;
 `
     : customScripts
 }

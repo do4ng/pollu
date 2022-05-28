@@ -1,3 +1,4 @@
 import { transform } from './core';
+import framework from './framework';
 
-export { transform };
+export { transform, framework };
