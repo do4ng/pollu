@@ -14,5 +14,4 @@ app.page = transform(main, { target: '#app', minify: true });
 
 new Function(app.links.js)();
 new Function(app.component.js)();
-new Function(app.playground.js)();
 new Function(app.page.js)();
