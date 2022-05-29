@@ -93,7 +93,7 @@ function transform(html: string, opts?: TransformOptions) {
       } else if (d.type === 'text') {
         if (d.content.replace('\n', '').trim() !== '') {
           element = ' ';
-          texts[countElement.toString()] = d.content;
+          texts[countElement.toString()] = trimHTML(d.content);
         }
       }
       if (element) {
