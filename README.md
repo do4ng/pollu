@@ -7,6 +7,11 @@
 compile html to javascript code.  
 You need only one of HTML file to render lots of data...
 
+## Features
+
+It uses `document.appendChild` instead of `document.write`  
+[Difference between appendChild and document.write](https://stackoverflow.com/questions/22172589/document-write-vs-appendchild)
+
 ## Usage
 
 ```js
